@@ -1,0 +1,38 @@
+name: Generate ASCII Image using multiple jobs
+
+on: push
+
+jobs:
+  build_job_1:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v4
+
+    - name: Install comsay
+      run: sudo apt install cowsay -y
+
+    - name: Executing the command
+      run: cowsay -f dragon "Run for cover, I am a dragon" >> dragon.txt
+
+    - name: sleep for 10 sec
+      run: sleep 10
+
+  test_job_2:
+    needs: build_job_1
+    runs-on: ubuntu-latest
+    steps:
+    - name: sleep for 10 sec
+      run: sleep 10
+    - name : Test File extsts
+      run: grep -i "dragon" dragon.txt
+    
+  deploy_job_3:
+    needs: [test_job_2]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Read File
+      run: cat dragon.txt
+    - name : List Files
+      run: ls -ltra
+                      
