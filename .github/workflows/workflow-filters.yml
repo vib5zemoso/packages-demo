@@ -1,0 +1,25 @@
+name: Worflow filters and activeites
+
+on:
+  workflow_dispatch:
+  push:
+    branches: 
+      - '!features/*' # ! will ignore pushing to any branches starting with featues
+      - main
+    # branches-ignore: #ignore the branches
+    #   - features/*
+    #   - test/**
+  pull_request: 
+    types: 
+      - opened
+      - closed
+    paths-ignore: 
+      - README.md # changes other than the readme file
+    branches:
+      - main
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo this workflow/job/step in executed for event type = ${{ github.event_name }}
