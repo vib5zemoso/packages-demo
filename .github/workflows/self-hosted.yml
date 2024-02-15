@@ -1,0 +1,13 @@
+name: Self Hosted Runner
+
+on:
+  workflow_dispatch:
+
+jobs:
+  testing:
+    runs-on: [self-hosted,linux,prod]
+    steps:
+    - name: Echo Content
+      run: |
+        echo OK
+        sleep 30s
